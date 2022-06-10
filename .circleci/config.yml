@@ -84,8 +84,11 @@ jobs:
                     --nodegroup-name p5CapstoneNodeGroup \
                     --node-type t2.micro | tee ~/eks_results.txt
                 
+                echo "Already exists: $(grep -q "already exits" ~/eks_results.txt)"
+                echo "Region ready: $(grep -q "region is ready" ~/eks_results.txt)"
+
                 # if it already exists, or finished successfully, call it good 
-                if grep -q "already exits" ~/eks_results.txt
+                if grep -q "already exists" ~/eks_results.txt
                 then
                   return 1
                 elif grep -q  "region is ready" ~/eks_results.txt
