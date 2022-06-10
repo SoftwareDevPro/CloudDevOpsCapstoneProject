@@ -120,8 +120,8 @@ jobs:
             sleep 60s
             kubectl get svc
             
-            $(aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName') > ~/load_balancer_dns.txt
-            cat ~/load_balancers_dns.txt
+            $(aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName') > load_balancer_dns.txt
+            cat load_balancers_dns.txt
       - persist_to_workspace:
           root: ~/
           paths:
