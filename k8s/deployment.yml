@@ -1,0 +1,30 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-p5capstone
+  labels:
+    app: deployment-p5capstone
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: deployment-p5capstone
+    strategy:
+      # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 1
+        maxSurge: 1
+    template:
+        metadata:
+          labels:
+            app: deployment-p5capstone
+    spec:
+      containers:
+        - name: p5capstone
+          image: eisel98/p5capstone
+          ports:
+            - containerPort: 80
+
+

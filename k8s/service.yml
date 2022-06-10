@@ -1,0 +1,15 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata: 
+    name: deployment-p5capstone
+spec:
+    # https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
+    type: LoadBalancer
+    selector:
+        app: deployment-p5capstone
+    ports:
+        - name: http
+          protocol: TCP
+          port: 80
+          targetPort: 80
