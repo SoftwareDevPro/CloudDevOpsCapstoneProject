@@ -124,6 +124,3 @@ workflows:
       - deploy-to-cluster:
           requires:
            - setup-eks-cluster 
-      - test-load-balancer:
-          requires:
-           - deploy-to-cluster
