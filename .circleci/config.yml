@@ -119,7 +119,35 @@ jobs:
             kubectl apply -f ./k8s/service.yml
             sleep 60s
             kubectl get svc
-                                    
+            
+            $(aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName') > ~/load_balancer_dns.txt
+            cat ~/load_balancers_dns.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - load_balancer_dns.txt
+
+  smoke-test:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      # Checkout code from git
+      - checkout
+      - attach_workspace:
+          at: ~/            
+      - run:
+          name: smoke test
+          command: |
+            # your code here
+            URL="http://$(cat ~/load_balancer_dns.txt):8000"            
+            echo ${URL}
+            if curl -s ${URL} | grep "Welcome"
+            then
+              return 0
+            else
+              return 1
+            fi
+
 workflows:
   default:
     jobs:
@@ -132,4 +160,7 @@ workflows:
             - build-docker-image
       - deploy-to-cluster:
           requires:
-           - setup-eks-cluster 
+           - setup-eks-cluster
+      - smoke-test:
+          requires:
+            - deploy-to-cluster
