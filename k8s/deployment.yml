@@ -10,12 +10,12 @@ spec:
   selector:
     matchLabels:
       app: deployment-p5capstone
-    strategy:
-      # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
-      type: RollingUpdate
-      rollingUpdate:
-        maxUnavailable: 1
-        maxSurge: 1
+  strategy:
+    # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
     template:
         metadata:
           labels:
