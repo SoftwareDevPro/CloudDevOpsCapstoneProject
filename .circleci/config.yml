@@ -76,6 +76,14 @@ jobs:
             # https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
             name: setup eks cluster
             command: |
+                /tmp/eksctl get cluster --region $AWS_DEFAULT_REGION > ~/eks_results.txt
+
+                cat ~/eks_results.txt
+                
+                if grep -q "$CLUSTER_NAME" ~/eks_results.txt
+                then
+                  return 0
+                end
 
                 /tmp/eksctl create cluster \
                     --name $CLUSTER_NAME \
@@ -83,22 +91,8 @@ jobs:
                     --region us-east-1 \
                     --zones us-east-1a,us-east-1b \
                     --nodegroup-name p5CapstoneNodeGroup \
-                    --node-type t2.micro 2>&1 | tee ~/eks_results.txt
+                    --node-type t2.micro
                 
-                echo "Already exists: $(grep -q "already exits" ~/eks_results.txt)"
-                echo "Region ready: $(grep -q "region is ready" ~/eks_results.txt)"
-
-                # if it already exists, or finished successfully, call it good 
-                if grep -q "already exists" ~/eks_results.txt
-                then
-                  return 0
-                elif grep -q  "region is ready" ~/eks_results.txt
-                then
-                  return 0
-                else
-                  return 1
-                fi
-            
             # cluster creation takes a while
             no_output_timeout: 30m
 
