@@ -82,7 +82,7 @@ jobs:
                     --region us-east-1 \
                     --zones us-east-1a,us-east-1b \
                     --nodegroup-name p5CapstoneNodeGroup \
-                    --node-type t2.micro | tee ~/eks_results.txt
+                    --node-type t2.micro 2>&1 | tee ~/eks_results.txt
                 
                 echo "Already exists: $(grep -q "already exits" ~/eks_results.txt)"
                 echo "Region ready: $(grep -q "region is ready" ~/eks_results.txt)"
