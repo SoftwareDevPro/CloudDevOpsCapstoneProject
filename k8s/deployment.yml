@@ -16,10 +16,10 @@ spec:
     rollingUpdate:
       maxUnavailable: 1
       maxSurge: 1
-    template:
-        metadata:
-          labels:
-            app: deployment-p5capstone
+  template:
+    metadata:
+        labels:
+          app: deployment-p5capstone
     spec:
       containers:
         - name: p5capstone
