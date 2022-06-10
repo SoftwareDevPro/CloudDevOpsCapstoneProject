@@ -76,6 +76,7 @@ jobs:
             # https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
             name: setup eks cluster
             command: |
+
                 /tmp/eksctl create cluster \
                     --name $CLUSTER_NAME \
                     --nodes 2 \
@@ -90,12 +91,12 @@ jobs:
                 # if it already exists, or finished successfully, call it good 
                 if grep -q "already exists" ~/eks_results.txt
                 then
-                  return 1
+                  return 0
                 elif grep -q  "region is ready" ~/eks_results.txt
                 then
-                  return 1
-                else
                   return 0
+                else
+                  return 1
                 fi
             
             # cluster creation takes a while
