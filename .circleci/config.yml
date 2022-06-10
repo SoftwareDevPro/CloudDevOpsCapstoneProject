@@ -55,10 +55,10 @@ jobs:
            name: Build docker container
            command: |
                echo $DOCKER_IMAGE_NAME
-               docker build -t $DOCKER_LOGIN/$DOCKER_IMAGE_NAME .
-               docker image ls
-               echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-               docker push $DOCKER_LOGIN/$DOCKER_IMAGE_NAME
+               #docker build -t $DOCKER_LOGIN/$DOCKER_IMAGE_NAME .
+               #docker image ls
+               #echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+               #docker push $DOCKER_LOGIN/$DOCKER_IMAGE_NAME
   
   setup-eks-cluster:
     # https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html
@@ -71,13 +71,12 @@ jobs:
            name: install eksctl
            command: |              
               curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-              mv /tmp/eksctl /usr/local/bin
-              eksctl version
+              /tmp/eksctl version
       - run:
             # https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
             name: setup eks cluster
             command: |
-                eksctl create cluster \
+                /tmp/eksctl create cluster \
                     --name $CLUSTER_NAME \
                     --nodes 2 \
                     --region us-east-1 \
