@@ -79,11 +79,11 @@ jobs:
                 /tmp/eksctl get cluster --region $AWS_DEFAULT_REGION > ~/eks_results.txt
 
                 cat ~/eks_results.txt
-                
+
                 if grep -q "$CLUSTER_NAME" ~/eks_results.txt
                 then
                   return 0
-                end
+                fi
 
                 /tmp/eksctl create cluster \
                     --name $CLUSTER_NAME \
