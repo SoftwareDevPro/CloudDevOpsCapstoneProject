@@ -82,16 +82,16 @@ jobs:
 
                 if grep -q "$CLUSTER_NAME" ~/eks_results.txt
                 then
-                  return 0
+                  echo "Cluster exists"
+                else
+                  /tmp/eksctl create cluster \
+                      --name $CLUSTER_NAME \
+                      --nodes 2 \
+                      --region us-east-1 \
+                      --zones us-east-1a,us-east-1b \
+                      --nodegroup-name p5CapstoneNodeGroup \
+                      --node-type t2.micro
                 fi
-
-                /tmp/eksctl create cluster \
-                    --name $CLUSTER_NAME \
-                    --nodes 2 \
-                    --region us-east-1 \
-                    --zones us-east-1a,us-east-1b \
-                    --nodegroup-name p5CapstoneNodeGroup \
-                    --node-type t2.micro
                 
             # cluster creation takes a while
             no_output_timeout: 30m
