@@ -122,9 +122,8 @@ jobs:
             kubectl get svc
             echo "-------------------------------------"
             
-            aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName' --output text 2>&1
-            $(aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName' --output text) > load_balancers_dns.txt
-            cat load_balancers_dns.txt
+            $(aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName' --output text) > ~/load_balancers_dns.txt
+            cat ~/load_balancers_dns.txt
       - persist_to_workspace:
           root: ~/
           paths:
