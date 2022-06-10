@@ -116,10 +116,13 @@ jobs:
             kubectl apply -f ./k8s/deployment.yml
             sleep 60s
             kubectl get deployments
+            echo "-------------------------------------"
             kubectl apply -f ./k8s/service.yml
             sleep 60s
             kubectl get svc
+            echo "-------------------------------------"
             
+            aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName'
             $(aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName') > load_balancer_dns.txt
             cat load_balancers_dns.txt
       - persist_to_workspace:
