@@ -150,7 +150,7 @@ jobs:
             # your code here
             URL="http://$(cat ~/load_balancers_dns.txt):8000"            
             echo ${URL}
-            if curl -s ${URL} | grep "Welcome"
+            if curl -s ${URL} | grep "Hello
             then
               exit 0
             else
