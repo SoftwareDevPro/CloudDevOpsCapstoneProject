@@ -55,10 +55,10 @@ jobs:
            name: Build docker container
            command: |
                echo $DOCKER_IMAGE_NAME
-               #docker build -t $DOCKER_LOGIN/$DOCKER_IMAGE_NAME .
-               #docker image ls
-               #echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-               #docker push $DOCKER_LOGIN/$DOCKER_IMAGE_NAME
+               docker build -t $DOCKER_LOGIN/$DOCKER_IMAGE_NAME .
+               docker image ls
+               echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+               docker push $DOCKER_LOGIN/$DOCKER_IMAGE_NAME
   
   setup-eks-cluster:
     # https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html
