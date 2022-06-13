@@ -122,7 +122,8 @@ jobs:
             kubectl get svc
             echo "-------------------------------------"
             
-            $(aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName' --output text) > ~/load_balancers_dns.txt
+            echo "$(aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName' --output text)"
+            aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].DNSName' --output text > ~/load_balancers_dns.txt
             cat ~/load_balancers_dns.txt
       - persist_to_workspace:
           root: ~/
@@ -141,7 +142,7 @@ jobs:
           name: smoke test
           command: |
             # your code here
-            URL="http://$(cat ~/load_balancer_dns.txt):8000"            
+            URL="http://$(cat ~/load_balancers_dns.txt):8000"            
             echo ${URL}
             if curl -s ${URL} | grep "Welcome"
             then
