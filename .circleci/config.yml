@@ -102,6 +102,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: yum install -y tar gzip      
+      - run:
          name: update kubeconfig for cluster
          # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
          command: |
