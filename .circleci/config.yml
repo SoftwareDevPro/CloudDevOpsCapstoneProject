@@ -131,7 +131,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - load_balancer_dns.txt
+            - load_balancers_dns.txt
 
   smoke-test:
     docker:
